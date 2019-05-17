@@ -6,6 +6,10 @@ import './plugins/element.js'
 
 Vue.config.productionTip = false
 
+// 导入封装好的axios
+import http from './http.js'
+Vue.prototype.$http = http
+
 new Vue({
   router,
   store,
