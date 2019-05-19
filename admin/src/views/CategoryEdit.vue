@@ -1,6 +1,6 @@
 <template>
   <div class="categoryEdit">
-    <h1>创建分类</h1>
+    <h1>新建分类</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="名称" >
         <el-input v-model="model.name"></el-input>
@@ -20,8 +20,19 @@ export default {
     }
   },
   methods: {
-    save() {
-      // this.$http.post()
+    // .then .catch 方式
+    // save() {
+    //   this.$http.post('categories').then(res => {}).catch(error => {})
+    // }
+
+    //async await 方式
+    async save() {
+      const res = await this.$http.post('/categories', this.model)
+      this.$router.push('/categoies/list')
+      this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
     }
   }
 }
