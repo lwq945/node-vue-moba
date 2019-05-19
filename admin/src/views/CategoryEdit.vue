@@ -27,12 +27,12 @@ export default {
 
     //async await 方式
     async save() {
-      const res = await this.$http.post('/categories', this.model)
-      this.$router.push('/categoies/list')
+      const res = await this.$http.post('categories', this.model)
+      this.$router.push('/categories/list')
       this.$message({
           message: '保存成功',
           type: 'success'
-        });
+      });
     }
   }
 }
