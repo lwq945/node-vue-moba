@@ -3,6 +3,7 @@
     <h1>分类列表</h1>
     <el-table stripe :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
+      <el-table-column prop="parent.name" label="上级分类名称" width="140"></el-table-column>
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
@@ -26,7 +27,6 @@ export default {
     this.getCategoryLists();
   },
   methods: {
-    //async await 方式
     async getCategoryLists() {
       const res = await this.$http.get('categories');
       this.items = res.data

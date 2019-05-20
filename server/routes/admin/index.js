@@ -29,7 +29,8 @@ module.exports = app => {
     // 获取所有分类数据，发送到前端
     router.get('/categories', async (req, res) => {
         // 找出 Category 集合的所有数据，每次限制 10 条
-        const data = await Category.find().limit(10)
+        // populate('parent') 找出字段 parent 关联的模型对象
+        const data = await Category.find().populate('parent').limit(10)
         res.send(data)
     })
 
