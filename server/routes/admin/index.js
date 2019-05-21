@@ -65,4 +65,17 @@ module.exports = app => {
     req.Model = require(`../../models/${modelName}`)
     next()
   }, router)
+
+  // 上传图片的路由
+  // 使用中间件 multer 来处理上传的文件
+  const multer = require('multer')
+  // dest属性是：存储文件的路径,这里要使用绝对路径，'/../../upload'是当前文件相对于uploads文件夹的
+  // upload.single('file') 是上传单个文件，'file' 是上传图片自己生成的字段名
+  // 具体在浏览器查看请求头的 Form data的数据 file: (binary)
+  const upload = multer({ dest: __dirname + '/../../uploads' })  
+  app.post('/admin/api/upload', upload.single('file'), async (req, res, next) => {
+    const file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
 }

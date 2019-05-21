@@ -69,7 +69,7 @@ export default {
     async getParents() {
       const res = await this.$http.get('rest/categories')
       this.parents = res.data
-      console.log(this.parents)
+      //console.log(this.parents)
     }
   }
 }

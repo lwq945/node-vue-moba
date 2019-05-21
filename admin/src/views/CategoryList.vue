@@ -8,7 +8,11 @@
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
           <!--  scope.row 是指当前项（操作）的内容对象 {_id: xxx,name: xxxx} -->
-          <el-button type="primary" size="small" @click="$router.push(`/categories/edit/${scope.row._id}`)">编辑</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            @click="$router.push(`/categories/edit/${scope.row._id}`)"
+          >编辑</el-button>
           <el-button type="primary" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -21,27 +25,27 @@ export default {
   data() {
     return {
       items: []
-    };
+    }
   },
   created() {
-    this.getCategoryLists();
+    this.getCategoryLists()
   },
   methods: {
     async getCategoryLists() {
-      const res = await this.$http.get('rest/categories');
+      const res = await this.$http.get('rest/categories')
       this.items = res.data
     },
     remove(row) {
       this.$confirm(`是否确定要删除分类 "${row.name}"`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-      }).then( async () => {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
         const res = await this.$http.delete(`rest/categories/${row._id}`)
         this.$message({
           type: 'success',
           message: '删除成功!'
-        });
+        })
         this.getCategoryLists()
       })
     }

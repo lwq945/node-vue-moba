@@ -6,7 +6,15 @@
         <el-input v-model="model.name"></el-input>
       </el-form-item>
       <el-form-item label="图标">
-        <el-input v-model="model.icon"></el-input>
+        <el-upload
+          class="avatar-uploader"
+          :action="$http.defaults.baseURL + '/upload'"
+          :show-file-list="false"
+          :on-success="afterUpload"
+        >
+          <img v-if="model.icon" :src="model.icon" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -23,7 +31,7 @@ export default {
   data() {
     return {
       model: {}
-    };
+    }
   },
   created() {
     // id为真时，才获取要编辑的内容
@@ -33,11 +41,11 @@ export default {
     //async await 方式
     // 保存数据
     async save() {
-      let res;
+      let res
       if (this.id) {
         res = await this.$http.put(`rest/items/${this.id}`, this.model)
       } else {
-        res = await this.$http.post('rest/items', this.model)
+        res = await this.$http.post("rest/items", this.model)
       }
 
       this.$router.push("/items/list")
@@ -49,8 +57,39 @@ export default {
     // 获取要编辑的内容,显示在输入框中
     async getEditContent() {
       const res = await this.$http.get(`rest/items/${this.id}`)
-      this.model = res.data
+      this.model = res.data;
+    },
+    afterUpload(res) {
+      console.log(res)
+      // 响应式添加嵌套属性
+      this.$set(this.model, 'icon', res.url)
     }
   }
 }
 </script>
+
+<style>
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px !important;
+    text-align: center;
+}
+.avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+</style>
