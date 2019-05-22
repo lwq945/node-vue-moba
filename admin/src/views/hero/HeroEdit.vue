@@ -77,7 +77,7 @@
                   class="avatar-uploader"
                   :action="$http.defaults.baseURL + '/upload'"
                   :show-file-list="false"
-                  :on-success="afterUpload"
+                  :on-success="res => $set(item, 'icon', res.url)"
                 >
                   <img v-if="item.icon" :src="item.icon" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -86,8 +86,11 @@
               <el-form-item label="描述">
                 <el-input type="textarea" placeholder="请输入内容" v-model="item.description"></el-input>
               </el-form-item>
-              <el-form-item label="小技巧">
+              <el-form-item label="小提示">
                 <el-input type="textarea" placeholder="请输入内容" v-model="item.tips"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" round @click="model.skills.splice(i, 1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -181,14 +184,14 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px !important;
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem !important;
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 4rem;
+  height: 4rem;
   display: block;
 }
 </style>
