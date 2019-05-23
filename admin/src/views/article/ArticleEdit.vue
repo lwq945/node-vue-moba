@@ -16,7 +16,7 @@
         <el-input v-model="model.title"></el-input>
       </el-form-item>
       <el-form-item label="详情">
-        <vue-editor v-model="model.body"></vue-editor>
+        <vue-editor v-model="model.body" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -72,6 +72,16 @@ export default {
       const res = await this.$http.get('rest/categories')
       this.categories = res.data
       //console.log(this.parents)
+    },
+    // 处理图片上传后路径不是默认以base64格式的形式，base64格式的路径太长，图片多了，会使页面体积变的很大
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      // formData 发送表单数据，'file'字段是上传图片请求时，浏览器请求头生成的Form Data ： file:(binary)
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await this.$http.post('upload', formData)
+      Editor.insertEmbed(cursorLocation, 'image', res.data.url)
+      resetUploader()
     }
   },
   components: {
