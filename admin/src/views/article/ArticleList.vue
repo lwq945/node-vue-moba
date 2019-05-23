@@ -6,7 +6,6 @@
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
-          <!--  scope.row 是指当前项（操作）的内容对象 {_id: xxx,name: xxxx} -->
           <el-button
             type="primary"
             size="small"
