@@ -1,5 +1,5 @@
 <template>
-  <div class="categoryEdit">
+  <div class="articleEdit">
     <h1>{{ id ? "编辑":"新建"}}文章</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       model: {
-        name: '',
+        title: '',
+        body: ''
       },
       categories: []
     };
@@ -71,7 +72,6 @@ export default {
     async getCategories() {
       const res = await this.$http.get('rest/categories')
       this.categories = res.data
-      //console.log(this.parents)
     },
     // 处理图片上传后路径不是默认以base64格式的形式，base64格式的路径太长，图片多了，会使页面体积变的很大
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {

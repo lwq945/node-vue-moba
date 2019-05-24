@@ -1,5 +1,5 @@
 <template>
-  <div class="categoryList">
+  <div class="heroList">
     <h1>英雄列表</h1>
     <el-table stripe :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
@@ -33,11 +33,11 @@ export default {
     };
   },
   created() {
-    this.getItemLists();
+    this.getHeroLists();
   },
   methods: {
-    // 获取物品列表数据
-    async getItemLists() {
+    // 获取英雄列表数据
+    async getHeroLists() {
       const res = await this.$http.get('rest/heroes')
       this.items = res.data
     },
@@ -53,8 +53,8 @@ export default {
           type: 'success',
           message: '删除成功!'
         })
-        // 删除后，重新获取列表数据
-        this.getItemLists()
+        // 删除后，重新获取英雄列表数据
+        this.getHeroLists()
       })
     }
   }

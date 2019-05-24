@@ -10,6 +10,8 @@ import HeroEdit from './views/hero/HeroEdit.vue'
 import HeroList from './views/hero/HeroList.vue'
 import ArticleEdit from './views/article/ArticleEdit.vue'
 import ArticleList from './views/article/ArticleList.vue'
+import AdEdit from './views/ad/AdEdit.vue'
+import AdList from './views/ad/AdList.vue'
 
 
 Vue.use(Router)
@@ -36,7 +38,11 @@ export default new Router({
 
         { path: '/articles/create', component: ArticleEdit },
         { path: '/articles/edit/:id', component: ArticleEdit, props: true },
-        { path: '/articles/list', component: ArticleList }
+        { path: '/articles/list', component: ArticleList },
+
+        { path: '/ads/create', component: AdEdit },
+        { path: '/ads/edit/:id', component: AdEdit, props: true },
+        { path: '/ads/list', component: AdList }
       ]
     },
     //create 和 edit 这两个路由指向的组件内容一样，通过是否有传 id 来判断 h1标签的内容（‘新建’ 还是 ‘编辑’）

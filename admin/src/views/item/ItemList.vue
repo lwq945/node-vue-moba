@@ -1,5 +1,5 @@
 <template>
-  <div class="categoryList">
+  <div class="itemList">
     <h1>物品列表</h1>
     <el-table stripe :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
@@ -52,7 +52,7 @@ export default {
           type: 'success',
           message: '删除成功!'
         })
-        // 删除后，重新获取列表数据
+        // 删除后，重新获取物品列表数据
         this.getItemLists()
       })
     }

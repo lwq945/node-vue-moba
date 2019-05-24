@@ -50,7 +50,7 @@ module.exports = app => {
     res.send(data)
   })
 
-  // 查找
+  // 查找并获取
   router.get("/:id", async (req, res) => {
     const model = await req.Model.findById(req.params.id)
     res.send(model)

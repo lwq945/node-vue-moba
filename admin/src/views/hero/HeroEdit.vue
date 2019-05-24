@@ -1,5 +1,5 @@
 <template>
-  <div class="itemEdit">
+  <div class="heroEdit">
     <h1>{{ id ? "编辑":"新建"}}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-tabs type="border-card" value="skills">
@@ -114,6 +114,7 @@ export default {
         name: '',
         avatar: '',
         title: '',
+        skills: [],
         scores: {
           difficult: 0,
           skills: 0,
@@ -158,6 +159,7 @@ export default {
       const res = await this.$http.get(`rest/categories`)
       this.categories = res.data
     },
+    // 获取物品
     async getItems() {
       const res = await this.$http.get(`rest/items`)
       this.items = res.data
@@ -169,29 +171,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 4rem;
-  height: 4rem;
-  line-height: 4rem !important;
-  text-align: center;
-}
-.avatar {
-  width: 4rem;
-  height: 4rem;
-  display: block;
-}
-</style>
