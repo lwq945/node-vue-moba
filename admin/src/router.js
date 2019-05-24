@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Main from './views/Main.vue'
+import Main from './views/main/Main.vue'
+
+import Login from './views/login/Login.vue'
 
 import CategoryEdit from './views/category/CategoryEdit.vue'
 import CategoryList from './views/category/CategoryList.vue'
@@ -27,6 +29,7 @@ Vue.use(Router)
 export default new Router({
   base: process.env.BASE_URL,
   routes: [
+    { path: '/login', name: 'login', component: Login },
     {
       path: '/',
       name: 'main',
