@@ -63,7 +63,7 @@ export default {
       this.model = res.data;
     },
     afterUpload(res) {
-      console.log(res)
+      //console.log(res)
       this.model.icon = res.url
     }
   }
