@@ -1,10 +1,10 @@
 // admin 的路由配置
 module.exports = app => {
-  const express = require("express")
+  const express = require('express')
   const router = express.Router({
     // 将父级路由和子级路由的参数合并，存在冲突参数，子级优先
     mergeParams: true
-  });
+  })
 
   // 通用的CRUD接口：通用性、扩展性
 
@@ -17,20 +17,20 @@ module.exports = app => {
   // const Model = require(`../../models/${modelName}`);
 
   // 添加
-  router.post("/", async (req, res) => {
+  router.post('/', async (req, res) => {
     const model = await req.Model.create(req.body)
     res.send(model)
   })
 
   // 查找并更新
-  router.put("/:id", async (req, res) => {
+  router.put('/:id', async (req, res) => {
     // 找到对应id，并更新值
     const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     res.send(model)
   })
 
   // 查找并删除
-  router.delete("/:id", async (req, res) => {
+  router.delete('/:id', async (req, res) => {
     // 找到对应id，删除
     await req.Model.findByIdAndDelete(req.params.id, req.body)
     res.send({
@@ -39,19 +39,21 @@ module.exports = app => {
   })
 
   // 获取
-  router.get("/", async (req, res) => {
+  router.get('/', async (req, res) => {
     // 找出 Category 集合的所有数据，每次限制 10 条
     // populate('parent') 找出字段 parent 关联的模型对象
     const queryOptions = {}
-    if(req.Model.modelName === 'Category') {
-        queryOptions.populate = 'parent'
+    if (req.Model.modelName === 'Category') {
+      queryOptions.populate = 'parent'
     }
-    const data = await req.Model.find().setOptions(queryOptions).limit(10)
+    const data = await req.Model.find()
+      .setOptions(queryOptions)
+      .limit(10)
     res.send(data)
   })
 
   // 查找并获取
-  router.get("/:id", async (req, res) => {
+  router.get('/:id', async (req, res) => {
     const model = await req.Model.findById(req.params.id)
     res.send(model)
   })
@@ -59,12 +61,16 @@ module.exports = app => {
   // 通用接口改造 1、在接口上 '/admin/api/' 加 rest/:resource
   // rest是表明接口是 restful接口类型的前缀,加前缀是为了不影响其他的接口
   // :resource 用来动态匹配前端传过来的路径；例如：接收到 categories，接口就是/admin/api/rest/categories
-  app.use("/admin/api/rest/:resource", async (req, res, next) => {
-    // 通用接口改造 3、给路由添加中间件（处理函数），放入以下代码,就能找到匹配到的url对应的model
-    const modelName = require("inflection").classify(req.params.resource)
-    req.Model = require(`../../models/${modelName}`)
-    next()
-  }, router)
+  app.use(
+    '/admin/api/rest/:resource',
+    async (req, res, next) => {
+      // 通用接口改造 3、给路由添加中间件（处理函数），放入以下代码,就能找到匹配到的url对应的model
+      const modelName = require('inflection').classify(req.params.resource)
+      req.Model = require(`../../models/${modelName}`)
+      next()
+    },
+    router
+  )
 
   // 上传图片的路由
   // 使用中间件 multer 来处理上传的文件
@@ -72,10 +78,42 @@ module.exports = app => {
   // dest属性是：存储文件的路径,这里要使用绝对路径，'/../../upload'是当前文件相对于uploads文件夹的
   // upload.single('file') 是上传单个文件，'file' 是上传图片自己生成的字段名
   // 具体在浏览器查看请求头的 Form data的数据 file: (binary)
-  const upload = multer({ dest: __dirname + '/../../uploads' })  
-  app.post('/admin/api/upload', upload.single('file'), async (req, res, next) => {
-    const file = req.file
-    file.url = `http://localhost:3000/uploads/${file.filename}`
-    res.send(file)
+  const upload = multer({ dest: __dirname + '/../../uploads' })
+  app.post(
+    '/admin/api/upload',
+    upload.single('file'),
+    async (req, res, next) => {
+      const file = req.file
+      file.url = `http://localhost:3000/uploads/${file.filename}`
+      res.send(file)
+    }
+  )
+
+  // 登录
+  app.post('/admin/api/login', async (req, res) => {
+    const AdminUser = require('../../models/AdminUser')
+    const { username, password } = req.body
+
+     // 1. 根据用户名查找用户
+     // select('+password') 表示查的时候把密码(定义模型时设置了select：false)也查出来
+    const user = await AdminUser.findOne({username}).select('+password')
+
+    if (!user) {
+      return res.status(422).send({
+        message: '用户不存在'
+      })
+    }
+
+    // 2. 校验密码
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    if(!isValid) {
+      return res.status(422).send({
+        message: '密码错误'
+      })
+    }
+    // 3. 返回token
+    const jwt = require('jsonwebtoken')
+    const token = jwt.sign({id: user._id}, app.get('secret'))
+    res.send({ token })
   })
 }
