@@ -9,8 +9,8 @@ const http = axios.create({
 // 添加请求拦截器
 http.interceptors.request.use( config => {
   // 设置请求头
-  if (localStorage.getItem('user_token')) { // 本地存储有token，才设置请求头
-    config.headers.Authorization = 'Bearer ' + localStorage.getItem('user_token') 
+  if (localStorage.token) { // 本地存储有token，才设置请求头
+    config.headers.Authorization = 'Bearer ' + localStorage.token
   }
   
   return config

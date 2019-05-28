@@ -1,0 +1,57 @@
+<template>
+  <div class="adminUserEdit">
+    <h1>{{ id ? "编辑":"新建"}}管理员</h1>
+    <el-form label-width="120px" @submit.native.prevent="save">
+      <el-form-item label="用户名">
+        <el-input v-model="model.username"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input type="text" v-model="model.password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">保存</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    id: {}
+  },
+  data() {
+    return {
+      model: {}
+    };
+  },
+  created() {
+    // id为真时，才获取要编辑的内容
+    this.id && this.getEditContent()
+  },
+  methods: {
+    //async await 方式
+    // 保存数据
+    async save() {
+      let res;
+      if (this.id) {
+        res = await this.$http.put(`rest/admin_users/${this.id}`, this.model)
+      } else {
+        res = await this.$http.post('rest/admin_users', this.model)
+      }
+
+      this.$router.push("/admin_users/list")
+      this.$message({
+        message: "保存成功",
+        type: "success"
+      })
+    },
+    // 获取要编辑的内容,显示在输入框中
+    async getEditContent() {
+      const res = await this.$http.get(`rest/admin_users/${this.id}`)
+      //console.log(res.data)
+      this.model = res.data
+    }
+  }
+}
+</script>
