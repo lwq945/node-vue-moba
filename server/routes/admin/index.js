@@ -12,7 +12,7 @@ module.exports = app => {
   })
   
   
-  // 插入数据
+  // 创建数据并插入到数据库
   router.post('/', async (req, res) => {
     const model = await req.Model.create(req.body)
     res.send(model)
@@ -82,7 +82,7 @@ module.exports = app => {
 
     // 3. 返回token  
     const token = jwt.sign({id: user._id}, app.get('secret'))
-    res.send({ token })
+    res.send({ username: user.username, token })
   })
 
 

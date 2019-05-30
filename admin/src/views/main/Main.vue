@@ -63,7 +63,8 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span v-if="username">Hello<span class="name">{{ username }}</span></span>
+        <span v-else>请先登录</span>
       </el-header>
       <!-- 主体内容 -->
       <el-main>
@@ -77,10 +78,15 @@
 export default {
   data() {
     return {
-      
+      username: ''
+    }
+  },
+  created() {
+    if (localStorage.username) {
+      this.username = localStorage.username
     }
   }
-};
+}
 </script>
 
 <style>
@@ -88,6 +94,12 @@ export default {
   background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
+}
+
+.el-header .name {
+  color: #409EFF;
+  font-size: 16px;
+  margin-left: 5px;
 }
 
 .el-aside {
