@@ -13,6 +13,17 @@ Vue.config.productionTip = false
 import http from './http.js'
 Vue.prototype.$http = http
 
+// 全局的混入 给上传图片组件请求时加 Authorization 授权
+Vue.mixin({
+  methods: {
+    getAuthHeaders() {
+      return {
+        Authorization: `Bearer ${localStorage.token || ''}`
+      }
+    }
+  }
+})
+
 
 new Vue({
   router,
