@@ -53,7 +53,7 @@ export default {
     //   })
     // }
 
-     login() {
+    login() {
       this.$refs.loginFrom.validate( async valid => {
         if (valid) {
           const res = await this.$http.post('login', this.model)

@@ -26,10 +26,10 @@ import AdminUserList from './views/adminUser/AdminUserList.vue'
 
 Vue.use(Router)
 
-export default new Router({
+ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
-    { path: '/login', name: 'login', component: Login },
+    { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
     {
       path: '/',
       name: 'main',
@@ -64,3 +64,29 @@ export default new Router({
     // edit 组件通过 props 来解耦组件传参,在组件中要定义props属性 id，然后直接使用这个属性 id，(使用时，就不用写 $route.params.id)
   ]
 })
+
+
+// 路由守卫对没有登录进入页面进行拦截
+// router.beforeEach((to,from,next) => {
+//   if (localStorage.token) {
+//     next()
+//   } else {
+//     if(to.path == '/login') {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   }
+// })
+
+// 加了路由元信息 meta: {isPublic: true} 的路由才可以公开访问
+router.beforeEach((to, from, next) => {
+  //console.log(to.meta)
+  if(!to.meta.isPublic && !localStorage.token) {
+    next('/login')
+  }
+  next()
+})
+
+
+export default router
