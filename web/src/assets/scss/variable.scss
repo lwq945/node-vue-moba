@@ -9,7 +9,7 @@ $colors: (
   'hightlight': #464f73,
   'dark-l': #333,
   'dark': #212222,
-  'black': #222,
+  'black': #222
 );
 
 @each $colorKey, $color in $colors {
@@ -24,23 +24,28 @@ $colors: (
 // text align
 @each $var in (left, right, center) {
   .text-#{$var} {
-    text-align: $var
+    text-align: $var;
   }
 }
 
 // font size
 $base-font-size: 1rem;
 $font-sizes: (
-  xs: 0.7692,  // 10px
-  sm: 0.9231,  // 12px
-  md: 1.0769,  // 13px
-  lg: 1.2308,  // 16px
-  xl: 1.3846,  // 18px
+  // 10px
+    xs: 0.7692,
+  // 12px
+    sm: 0.9231,
+  // 13px
+    md: 1.0769,
+  // 16px
+    lg: 1.2308,
+  // 18px
+    xl: 1.3846
 );
 
 @each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
-    font-size: $size * $base-font-size
+    font-size: $size * $base-font-size;
   }
 }
 
@@ -83,3 +88,82 @@ $flex-ai: (
 .flex-1 {
   flex: 1;
 }
+
+// spacing (m-1,mx-1,mt-1)
+
+$spacing-types: (
+  m: margin,
+  p: padding
+);
+$spacing-directions: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left
+);
+// 倍数
+$spacing-sizes: (
+  0: 0,
+  1: 0.25,
+  2: 0.5,
+  3: 1,
+  4: 1.5,
+  5: 3
+);
+$spacing-base-size: 1rem;
+
+//m-1(margin: 0.25;) p-1(padding: 0.25) 4个方向的值一致
+@each $typeKey, $type in $spacing-types {
+  //mx-1(margin-left:0.25;margin-right:0.25;)
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}-#{$sizeKey} {
+      #{$type}: $size * $spacing-base-size;
+    }
+  }
+
+  //mx-1(margin-left:0.25;margin-right:0.25;) 水平和垂直方向
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+
+  // mt-1(margin-top: 0;) 单方向
+  @each $directionKey, $direction in $spacing-directions {
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
+    }
+  }
+}
+
+//mx-1(margin-left:0.25;margin-right:0.25;)
+// @each $typeKey, $type in $spacing-types {
+//   @each $sizeKey, $size in $spacing-sizes {
+//     .#{$typeKey}x-#{$sizeKey} {
+//       #{$type}-left: $size * $spacing-base-size;
+//       #{$type}-right: $size * $spacing-base-size;
+//     }
+//     .#{$typeKey}y-#{$sizeKey} {
+//       #{$type}-top: $size * $spacing-base-size;
+//       #{$type}-bottom: $size * $spacing-base-size;
+//     }
+//   }
+// }
+
+// // mt-1(margin-top: 0;)
+// @each $typeKey, $type in $spacing-types {
+//   @each $directionKey, $direction in $spacing-directions {
+//     @each $sizeKey, $size in $spacing-sizes {
+//       .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+//         #{$type}-#{$direction}: $size * $spacing-base-size;
+//       }
+//     }
+//   }
+// }
