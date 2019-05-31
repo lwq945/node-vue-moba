@@ -1,0 +1,46 @@
+// 颜色定义规范 l是light浅色，d是dark深色
+$colors: (
+  'primary': #db9e3f,
+  'base': #fff,
+  'grey-hl': #f9f9f9,
+  'grey-ll': #f1f1f1,
+  'grey-l': #999,
+  'grey': #7a7a80,
+  'hightlight': #464f73,
+  'dark-l': #333,
+  'dark': #212222,
+  'black': #222,
+);
+
+@each $colorKey, $color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background: $color;
+  }
+}
+
+// text align
+@each $var in (left, right, center) {
+  .text-#{$var} {
+    text-align: $var
+  }
+}
+
+// font size
+$base-font-size: 1rem;
+$font-sizes: (
+  xs: 0.7692,  // 10px
+  sm: 0.9231,  // 12px
+  md: 1.0769,  // 13px
+  lg: 1.2308,  // 16px
+  xl: 1.3846,  // 18px
+);
+
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size
+  }
+}
+
