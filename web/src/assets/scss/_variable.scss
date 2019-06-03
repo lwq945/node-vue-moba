@@ -3,8 +3,9 @@ $colors: (
   'primary': #db9e3f,
   'base': #fff,
   'grey-hl': #f9f9f9,
-  'grey-ll': #f1f1f1,
-  'grey-l': #999,
+  'grey-ls': #f1f1f1,
+  'grey-ll': #999,
+  'grey-l': #666,
   'grey': #7a7a80,
   'hightlight': #464f73,
   'dark-l': #333,
@@ -31,6 +32,8 @@ $colors: (
 // font size
 $base-font-size: 1rem;
 $font-sizes: (
+  // 8px
+    xxs: 0.6154,
   // 10px
     xs: 0.7692,
   // 12px
@@ -105,10 +108,12 @@ $spacing-directions: (
 $spacing-sizes: (
   0: 0,
   1: 0.25,
-  2: 0.5,
-  3: 1,
-  4: 1.5,
-  5: 3
+  2: 0.4,
+  3: 0.7,
+  4: 1,
+  5: 1.2,
+  6: 1.5,
+  7: 3
 );
 $spacing-base-size: 1rem;
 

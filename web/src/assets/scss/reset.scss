@@ -7,14 +7,21 @@
   outline: none;
 }
 
+html,body,div,p,
+h1,h2,h3,h4,h5,h6,
+span,ul,li,form,input,
+button,a {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   font-size: 13px;
 }
 
 body {
-  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.2em;
+  line-height: 1.5;
   background: #f1f1f1;
 }
 
@@ -25,4 +32,23 @@ a {
 
 li {
   list-style: none;
+}
+
+// button
+button {
+  border: none;
+  border-radius: 0.1538rem;
+  padding: .3rem .6rem;
+  font-size: map-get($font-sizes, 'sm') * $base-font-size;
+}
+
+// nav
+.nav {
+  .nav-item {
+    border-bottom: 3px solid transparent;
+    &.active {
+      border-bottom: 3px solid #fff;
+    }
+    
+  }
 }
