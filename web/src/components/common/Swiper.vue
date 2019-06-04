@@ -6,7 +6,7 @@
         <img :src="item.image" class="w-100">
       </swiper-slide>
       <!-- Optional controls -->
-      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination text-right pb-4" slot="pagination"></div>
     </swiper>
   </div>
 </template>
@@ -45,25 +45,21 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/style/_variable.scss';
+
 .swiper-pagination {
-  text-align: right;
-  padding-right: 0.7rem;
+  padding-right: 1rem;
 }
 .swiper-pagination {
   .swiper-pagination-bullet {
-    display: inline-block;
     width: 0.6923rem;
     height: 0.6923rem;
-    border-radius: 2px;
-    background: #fff;
+    border-radius: 0.1538rem;
+    background: map-get($colors, 'white');
     opacity: 1;
-    margin-right: 0.7rem;
-    transition: all 0.05s ease-in;
-  }
-}
-.swiper-pagination {
-  .my-bullet-active {
-    background: #4b67af;
+    &.my-bullet-active {
+      background: map-get($colors, 'info');
+    }
   }
 }
 </style>

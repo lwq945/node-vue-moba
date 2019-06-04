@@ -33,6 +33,130 @@ li {
   list-style: none;
 }
 
+// colors
+@each $colorKey, $color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background: $color;
+  }
+}
+
+// text align
+@each $var in (left, right, center) {
+  .text-#{$var} {
+    text-align: $var !important;
+  }
+}
+
+// font size
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
+}
+
+// width,height
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+
+// flex
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+// justify-content
+@each $key, $val in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $val;
+  }
+}
+
+// align-items
+@each $key, $val in $flex-ai {
+  .ai-#{$key} {
+    align-items: $val;
+  }
+}
+
+// flex: 1;
+.flex-1 {
+  flex: 1;
+}
+
+// spacing (m-1,mx-1,mt-1)
+//m-1(margin: 0.25;) p-1(padding: 0.25) 4个方向的值一致
+@each $typeKey, $type in $spacing-types {
+  //mx-1(margin-left:0.25;margin-right:0.25;)
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}-#{$sizeKey} {
+      #{$type}: $size * $spacing-base-size;
+    }
+  }
+
+  //mx-1(margin-left:0.25;margin-right:0.25;) 水平和垂直方向
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+
+  // mt-1(margin-top: 0;) 单方向
+  @each $directionKey, $direction in $spacing-directions {
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
+    }
+  }
+}
+
+//mx-1(margin-left:0.25;margin-right:0.25;)
+// @each $typeKey, $type in $spacing-types {
+//   @each $sizeKey, $size in $spacing-sizes {
+//     .#{$typeKey}x-#{$sizeKey} {
+//       #{$type}-left: $size * $spacing-base-size;
+//       #{$type}-right: $size * $spacing-base-size;
+//     }
+//     .#{$typeKey}y-#{$sizeKey} {
+//       #{$type}-top: $size * $spacing-base-size;
+//       #{$type}-bottom: $size * $spacing-base-size;
+//     }
+//   }
+// }
+
+// // mt-1(margin-top: 0;)
+// @each $typeKey, $type in $spacing-types {
+//   @each $directionKey, $direction in $spacing-directions {
+//     @each $sizeKey, $size in $spacing-sizes {
+//       .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+//         #{$type}-#{$direction}: $size * $spacing-base-size;
+//       }
+//     }
+//   }
+// }
+
+
 // button
 button {
   border: none;
@@ -48,6 +172,68 @@ button {
     &.active {
       border-bottom: 3px solid #fff;
     }
-    
+  }
+}
+
+//icon
+.icon {
+  display: inline-block;
+  background: url('../images/index.png') 0 0 no-repeat;
+  background-size: 28.8462rem 35rem;
+  &.icon-broke {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
+  &.icon-story {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+  }
+  &.icon-mall {
+    width: 1.4615rem;
+    height: 1.6692rem;
+    background-position: 36.746% 0.924%;
+  }
+  &.icon-experience {
+    width: 1.5385rem;
+    height: 1.5769rem;
+    background-position: 10.408% 15.517%;
+  }
+  &.icon-newcomer {
+    width: 1.5385rem;
+    height: 1.6154rem;
+    background-position: 89.733% 1.266%;
+  }
+  &.icon-honor {
+    width: 1.8462rem;
+    height: 1.5385rem;
+    background-position: 36.467% 15.287%;
+  }
+  &.icon-colleague {
+    width: 2rem;
+    height: 1.6154rem;
+    background-position: 9.728% 1.266%;
+  }
+  &.icon-kingcamp {
+    width: 1.8462rem;
+    height: 1.8462rem;
+    background-position: 63.3% 0.927%;
+  }
+  &.icon-public {
+    width: 1.8462rem;
+    height: 1.5385rem;
+    background-position: 0 96.207%;
+  }
+  &.icon-version {
+    width: 2rem;
+    height: 1.8462rem;
+    background: url('../images/version-icon.png') no-repeat 0 0;
+    background-size: 100% auto;
+  }
+  &.icon-arrow {
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
   }
 }
