@@ -1,8 +1,10 @@
 <template>
   <div class="home">
+    <!-- home swiper -->
     <home-swiper :lists="slides"></home-swiper>
+    <!-- nav-icons -->
     <div class="nav-icons mt-3 bg-white">
-      <ul class="d-flex flex-wrap  text-center pt-4 text-black">
+      <ul class="d-flex flex-wrap text-center pt-4 text-black fs-sm">
         <li class="nav-item mb-4 d-flex ai-center jc-between flex-column">
           <i class="icon icon-broke mb-1"></i>
           <div>爆料站</div>
@@ -44,18 +46,55 @@
           <div>版本介绍</div>
         </li>
       </ul>
-      <div class="collapse py-2 text-center bg-grey-hl text-dark-l">
+      <div class="collapse py-2 text-center bg-grey-hl text-dark-l fs-sm">
         <i class="icon icon-arrow mr-1"></i>
         <span>收起</span>
       </div>
+    </div>
+    <!-- card news -->
+    <div class="news bg-white my-4 px-5">
+      <m-card icon="menu" title="新闻资讯">
+        <ul class="nav d-flex jc-between ai-center pt-4 pb-3">
+          <li class="nav-item active">
+            <div class="nav-link fs-md">热门</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link fs-md">新闻</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link fs-md">公告</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link fs-md">活动</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link fs-md">赛事</div>
+          </li>
+        </ul>
+        <div class="mt-1">
+          <swiper>
+            <swiper-slide v-for="n in 5" :key="n">
+              <div class="slide-item d-flex jc-between ai-center mb-4" v-for="m in 5" :key="m">
+                <span class="text-hightlight fs-mdl">[公告]</span>
+                <span class="mx-2">|</span>
+                <span class="text-ellipsis flex-1 mr-4 fs-mdl text-dark-l">2019KPL春季赛总决赛：退票及异地用户现场观赛补贴公告</span>
+                <span class="text-grey-l fs-sm">06/04</span>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </m-card>
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
 import HomeSwiper from '../components/common/Swiper'
+import Card from '../components/common/Card'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
 export default {
   name: 'home',
   data() {
@@ -68,13 +107,16 @@ export default {
     }
   },
   components: {
-    HomeSwiper
+    swiper,
+    swiperSlide,
+    HomeSwiper,
+    'm-card': Card
   }
 }
 </script>
 
 <style lang="scss">
-@import '../assets/style/_variable.scss';
+@import "../assets/style/_variable.scss";
 .nav-icons {
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
@@ -87,5 +129,8 @@ export default {
     }
   }
 }
-  
+
+.news {
+  border-bottom: 1px solid $border-color;
+}
 </style>

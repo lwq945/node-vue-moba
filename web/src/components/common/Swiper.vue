@@ -6,7 +6,7 @@
         <img :src="item.image" class="w-100">
       </swiper-slide>
       <!-- Optional controls -->
-      <div class="swiper-pagination text-right pb-4" slot="pagination"></div>
+      <div class="swiper-pagination text-right pb-2" slot="pagination"></div>
     </swiper>
   </div>
 </template>

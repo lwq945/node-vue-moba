@@ -21,7 +21,7 @@
           <router-link class="nav-link" tag="div" to="/match">赛事中心</router-link>
         </div>
       </div> -->
-      <ul class="nav d-flex jc-around ai-center text-white">
+      <ul class="nav nav-inverse d-flex jc-around ai-center">
         <router-link tag="li" to="/" class="nav-item">
           <div class="nav-link" >首页</div>
         </router-link>

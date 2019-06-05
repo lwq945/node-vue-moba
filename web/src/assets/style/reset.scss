@@ -53,7 +53,7 @@ li {
 // font size
 @each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
-    font-size: $size * $base-font-size;
+    font-size: $size * $base-font-size !important;
   }
 }
 
@@ -131,32 +131,6 @@ li {
   }
 }
 
-//mx-1(margin-left:0.25;margin-right:0.25;)
-// @each $typeKey, $type in $spacing-types {
-//   @each $sizeKey, $size in $spacing-sizes {
-//     .#{$typeKey}x-#{$sizeKey} {
-//       #{$type}-left: $size * $spacing-base-size;
-//       #{$type}-right: $size * $spacing-base-size;
-//     }
-//     .#{$typeKey}y-#{$sizeKey} {
-//       #{$type}-top: $size * $spacing-base-size;
-//       #{$type}-bottom: $size * $spacing-base-size;
-//     }
-//   }
-// }
-
-// // mt-1(margin-top: 0;)
-// @each $typeKey, $type in $spacing-types {
-//   @each $directionKey, $direction in $spacing-directions {
-//     @each $sizeKey, $size in $spacing-sizes {
-//       .#{$typeKey}#{$directionKey}-#{$sizeKey} {
-//         #{$type}-#{$direction}: $size * $spacing-base-size;
-//       }
-//     }
-//   }
-// }
-
-
 // button
 button {
   border: none;
@@ -170,7 +144,16 @@ button {
   .nav-item {
     border-bottom: 3px solid transparent;
     &.active {
-      border-bottom: 3px solid #fff;
+      color: map-get($colors, 'primary');
+      border-bottom-color: map-get($colors, 'primary');
+    }
+  }
+  &.nav-inverse {
+    .nav-item {
+      color: map-get($colors, 'white');
+      &.active {
+        border-bottom-color: map-get($colors, 'white');
+      }
     }
   }
 }
@@ -236,4 +219,10 @@ button {
     height: 0.7692rem;
     background-position: 38.577% 52.076%;
   }
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
