@@ -1,6 +1,6 @@
-// reset
 @import './variable.scss';
 
+// reset
 * {
   box-sizing: border-box;
   outline: none;
@@ -99,7 +99,7 @@ li {
   flex: 1;
 }
 
-// spacing (m-1,mx-1,mt-1)
+// 边距 spacing (m-1,mx-1,mt-1)
 //m-1(margin: 0.25;) p-1(padding: 0.25) 4个方向的值一致
 @each $typeKey, $type in $spacing-types {
   //mx-1(margin-left:0.25;margin-right:0.25;)
@@ -221,6 +221,7 @@ button {
   }
 }
 
+// 文本超出以省略号显示
 .text-ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;

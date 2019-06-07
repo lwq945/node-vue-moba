@@ -6,6 +6,10 @@ import store from './store'
 import './assets/style/reset.scss'
 import './assets/iconfonts/iconfont.css'
 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
 Vue.config.productionTip = false
 
 new Vue({

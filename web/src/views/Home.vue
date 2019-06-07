@@ -1,7 +1,14 @@
 <template>
   <div class="home">
     <!-- home swiper -->
-    <home-swiper :lists="slides"></home-swiper>
+    <div class="home-swiper">
+      <swiper :options="swiperOption" ref="mySwiper">
+        <swiper-slide v-for="item in slides" :key="item.id">
+          <img :src="item.image" class="w-100">
+        </swiper-slide>
+        <div class="swiper-pagination text-right pb-2" slot="pagination"></div>
+      </swiper>
+    </div>
     <!-- nav-icons -->
     <div class="nav-icons mt-3 bg-white">
       <ul class="d-flex flex-wrap text-center pt-4 text-black fs-sm">
@@ -53,36 +60,16 @@
     </div>
     <!-- card news -->
     <div class="news bg-white my-4 px-5">
-      <m-card icon="menu" title="新闻资讯">
-        <ul class="nav d-flex jc-between ai-center pt-4 pb-3">
-          <li class="nav-item active">
-            <div class="nav-link fs-md">热门</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link fs-md">新闻</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link fs-md">公告</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link fs-md">活动</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link fs-md">赛事</div>
-          </li>
-        </ul>
-        <div class="mt-1">
-          <swiper>
-            <swiper-slide v-for="n in 5" :key="n">
-              <div class="slide-item d-flex jc-between ai-center mb-4" v-for="m in 5" :key="m">
-                <span class="text-hightlight fs-mdl">[公告]</span>
-                <span class="mx-2">|</span>
-                <span class="text-ellipsis flex-1 mr-4 fs-mdl text-dark-l">2019KPL春季赛总决赛：退票及异地用户现场观赛补贴公告</span>
-                <span class="text-grey-l fs-sm">06/04</span>
-              </div>
-            </swiper-slide>
-          </swiper>
-        </div>
+      <m-card icon="menu" title="新闻资讯" :categories="newsData">
+        <!-- 直接拿到 slot 绑定的 prop => category -->
+        <template #newslists="{category}">
+          <div class="slide-item d-flex jc-between ai-center mb-4" v-for="(item,index) in category.newsList" :key="index">
+            <span class="text-hightlight fs-mdl">[{{ item.categoryname }}]</span>
+            <span class="mx-2">|</span>
+            <span class="text-ellipsis flex-1 mr-4 fs-mdl text-dark-l">{{ item.title }}</span>
+            <span class="text-grey-l fs-sm">{{ item.date }}</span>
+          </div>
+        </template>
       </m-card>
     </div>
   </div>
@@ -90,26 +77,74 @@
 
 <script>
 // @ is an alias to /src
-import HomeSwiper from '../components/common/Swiper'
 import Card from '../components/common/Card'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
   name: 'home',
   data() {
     return {
+      swiperOption: {
+        pagination: {
+          el: '.swiper-pagination',
+          bulletActiveClass: 'my-bullet-active',
+        },
+        loop: true,
+        autoplay: {
+          // 触碰后自动切换也不会停止
+          disableOnInteraction: false
+        },
+        a11y: false
+      },
       slides: [
         { id: 1, image: '//ossweb-img.qq.com/upload/adw/image/20190604/a81465de0bce25f22add0f4d700ec04f.jpeg' },
         { id: 2, image: '//ossweb-img.qq.com/upload/adw/image/20190602/86520e487b848db8d6a442f6aeecaca0.jpeg' },
         { id: 3, image: '//ossweb-img.qq.com/upload/adw/image/20190603/6d9c0b3189ab5e32636037f1a26d1c61.jpeg' }
+      ],
+      newsData: [
+        {
+          name: '热门',
+          newsList: new Array(5).fill({
+            categoryname: '活动',
+            title: '王者大陆的端午宝藏活动公告',
+            date: '06/06'
+          })
+        },
+        {
+          name: '新闻',
+          newsList: new Array(5).fill({
+            categoryname: '新闻',
+            title: '夏日新版本“稷下星之队”即将6月上线',
+            date: '06/06'
+          })
+        },
+        {
+          name: '公告',
+          newsList: new Array(5).fill({
+            categoryname: '公告',
+            title: '6月4日全服不停机更新公告',
+            date: '06/06'
+          })
+        },
+        {
+          name: '活动',
+          newsList: new Array(5).fill({
+            categoryname: '活动',
+            title: '峡谷庆端午 惊喜礼不断',
+            date: '06/06'
+          })
+        },
+        {
+          name: '赛事',
+          newsList: new Array(5).fill({
+            categoryname: '赛事',
+            title: '【6月15日 再战西安 · 2019年KPL春季赛总决赛重启公告】',
+            date: '06/06'
+          })
+        }
       ]
     }
   },
   components: {
-    swiper,
-    swiperSlide,
-    HomeSwiper,
     'm-card': Card
   }
 }
@@ -117,6 +152,24 @@ export default {
 
 <style lang="scss">
 @import "../assets/style/_variable.scss";
+// swiper style
+.swiper-pagination {
+  padding-right: 1rem;
+}
+.swiper-pagination {
+  .swiper-pagination-bullet {
+    width: 0.6923rem;
+    height: 0.6923rem;
+    border-radius: 0.1538rem;
+    background: map-get($colors, "white");
+    opacity: 1;
+    &.my-bullet-active {
+      background: map-get($colors, "info");
+    }
+  }
+}
+
+// nav-icons style
 .nav-icons {
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
@@ -130,6 +183,7 @@ export default {
   }
 }
 
+// news card style
 .news {
   border-bottom: 1px solid $border-color;
 }
