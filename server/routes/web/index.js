@@ -1,11 +1,11 @@
 module.exports = app => {
   const express = require('express')
   const router = express.Router()
-  // const mongoose = require('mongoose')
-  // const Category = mongoose.model('Category')
-  // const Article = mongoose.model('Article')
-  const Category = require('../../models/Category')
-  const Article = require('../../models/Article')
+  const mongoose = require('mongoose')
+  const Category = mongoose.model('Category')
+  const Article = mongoose.model('Article')
+  // const Category = require('../../models/Category')
+  // const Article = require('../../models/Article')
 
   router.get('/news/init', async (req, res) => {
     const parent = await Category.findOne({name: '新闻分类'})
