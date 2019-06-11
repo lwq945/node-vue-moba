@@ -68,7 +68,8 @@
       </el-header>
       <!-- 主体内容 -->
       <el-main>
-        <router-view/>
+        <!-- 把路由路径绑定到key，区分新建和编辑使用相同组件的复用 -->
+        <router-view :key="$route.path"></router-view>
       </el-main>
     </el-container>
   </el-container>

@@ -1,12 +1,13 @@
 <template>
   <div class="main">
     <div class="topbar bg-dark px-5 py-2 d-flex jc-between ai-center">
-      <img src="../assets/images/logo.png" height="30">
+      <i class="icon icon-logo"></i>
       <div class="logo-text flex-1 pl-3">
         <p class="text-white">王者荣耀</p>
         <p class="fs-xxs text-grey-l">团队成就更多</p>
       </div>
-      <button class="btn bg-primary">立即下载</button>
+      <!-- <button class="btn bg-primary">立即下载</button> -->
+      <i class="icon icon-download"></i>
     </div>
 
     <div class="bg-primary py-3">
@@ -43,3 +44,11 @@ export default {
   name: 'primary'
 }
 </script>
+
+<style lang="scss">
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+</style>

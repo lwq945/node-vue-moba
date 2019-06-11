@@ -158,11 +158,21 @@ button {
   }
 }
 
-//icon
+//home icon
 .icon {
   display: inline-block;
   background: url('../images/index.png') 0 0 no-repeat;
   background-size: 28.8462rem 35rem;
+  &.icon-logo {
+    width: 2.3077rem;
+    height: 2.3077rem;
+    background-position: 0 72.588%;
+  }
+  &.icon-download {
+    width: 4.6154rem;
+    height: 1.8462rem;
+    background-position: 18.73% 71.694%;
+  }
   &.icon-broke {
     width: 1.7692rem;
     height: 1.5385rem;
