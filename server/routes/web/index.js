@@ -47,7 +47,7 @@ module.exports = app => {
     res.send(newsList)
   })
 
-  // 新闻列表
+  // 获取新闻列表
   router.get('/news/list', async (req, res) => {
     // 先找出顶级分类
     const parent = await Category.findOne().where({ name: '新闻分类' })
@@ -62,7 +62,7 @@ module.exports = app => {
       {
         // 关联查询：找出子分类对应的文章标题数据
         $lookup: {
-          from: 'articles', // 关联集合的名称的小写复数
+          from: 'articles', // 关联集合的名称(小写复数)
           localField: '_id', // 本地键
           foreignField: 'categories', //外键(关联集合的字段)
           as: 'newsList' // 输出后的名称

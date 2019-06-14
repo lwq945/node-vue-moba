@@ -12,13 +12,13 @@
           :class="{active: active === index}"
           v-for="(category, index) in categories"
           :key="index"
-          @click="active=index"
+          @click="$refs.slide.swiper.slideTo(index)"
         >
           <div class="nav-link fs-md">{{ category.name }}</div>
         </li>
       </ul>
       <div class="mt-1">
-        <swiper>
+        <swiper ref="slide" @slide-change="active=$refs.slide.swiper.realIndex">
           <swiper-slide v-for="(category,index) in categories" :key="index">
             <!-- 将 categories 的每一项作为 插槽的prop传入，在父组件就可以直接拿到 category -->
             <slot name="newslists" :category="category"></slot>

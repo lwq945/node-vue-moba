@@ -64,10 +64,10 @@
         <!-- 直接拿到 slot 绑定的 prop => category -->
         <template #newslists="{category}">
           <div class="slide-item d-flex jc-between ai-center mb-4" v-for="(item,index) in category.newsList" :key="index">
-            <span class="text-hightlight fs-mdl">[{{ item.categoryname }}]</span>
+            <span class="text-hightlight fs-mdl">[{{ item.categoryName }}]</span>
             <span class="mx-2">|</span>
-            <span class="text-ellipsis flex-1 mr-4 fs-mdl text-dark-l">{{ item.title }}</span>
-            <span class="text-grey-l fs-sm">{{ item.date }}</span>
+            <span class="text-ellipsis flex-1 mr-4 fs-mdl text-black">{{ item.title }}</span>
+            <span class="text-grey-l fs-sm">{{ item.createdAt | dateFormat }}</span>
           </div>
         </template>
       </m-card>
@@ -78,6 +78,7 @@
 <script>
 // @ is an alias to /src
 import Card from '../components/common/Card'
+import dayjs from 'dayjs'
 
 export default {
   name: 'home',
@@ -100,48 +101,21 @@ export default {
         { id: 2, image: '//ossweb-img.qq.com/upload/adw/image/20190602/86520e487b848db8d6a442f6aeecaca0.jpeg' },
         { id: 3, image: '//ossweb-img.qq.com/upload/adw/image/20190603/6d9c0b3189ab5e32636037f1a26d1c61.jpeg' }
       ],
-      newsData: [
-        {
-          name: '热门',
-          newsList: new Array(5).fill({
-            categoryname: '活动',
-            title: '王者大陆的端午宝藏活动公告',
-            date: '06/06'
-          })
-        },
-        {
-          name: '新闻',
-          newsList: new Array(5).fill({
-            categoryname: '新闻',
-            title: '夏日新版本“稷下星之队”即将6月上线',
-            date: '06/06'
-          })
-        },
-        {
-          name: '公告',
-          newsList: new Array(5).fill({
-            categoryname: '公告',
-            title: '6月4日全服不停机更新公告',
-            date: '06/06'
-          })
-        },
-        {
-          name: '活动',
-          newsList: new Array(5).fill({
-            categoryname: '活动',
-            title: '峡谷庆端午 惊喜礼不断',
-            date: '06/06'
-          })
-        },
-        {
-          name: '赛事',
-          newsList: new Array(5).fill({
-            categoryname: '赛事',
-            title: '【6月15日 再战西安 · 2019年KPL春季赛总决赛重启公告】',
-            date: '06/06'
-          })
-        }
-      ]
+      newsData: []
+    }
+  },
+  created() {
+    this.fetchNewsData()
+  },
+  methods: {
+    async fetchNewsData() {
+      const res = await this.$http.get('news/list')
+      this.newsData = res.data
+    }
+  },
+  filters: {
+    dateFormat(val) {
+      return dayjs(val).format('MM/DD')
     }
   },
   components: {
