@@ -1,3 +1,17 @@
-{
-  "dependencies": {}
+{ 
+  "name": "node-vue-moba",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "web-install": "npm install --prefix web",
+    "web": "npm start --prefix web",
+    "admin-install": "npm install --prefix admin",
+    "admin": "npm start --prefix admin",
+    "server-install": "npm install --prefix server",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run web\" \"npm run admin\""
+  },
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
 }

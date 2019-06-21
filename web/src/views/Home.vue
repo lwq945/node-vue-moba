@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- home swiper -->
-    <div class="home-swiper">
+    <div class="home-swiper mb-3">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="item in slides" :key="item.id">
           <img :src="item.image" class="w-100">
@@ -10,8 +10,8 @@
       </swiper>
     </div>
     <!-- nav-icons -->
-    <div class="nav-icons mt-3 bg-white">
-      <ul class="d-flex flex-wrap text-center pt-4 text-black fs-sm">
+    <div class="nav-icons bg-white">
+      <ul class="d-flex flex-wrap text-center pt-5 text-black fs-sm">
         <li class="nav-item mb-4 d-flex ai-center jc-between flex-column">
           <i class="icon icon-broke mb-1"></i>
           <div>爆料站</div>
@@ -79,7 +79,6 @@
 // @ is an alias to /src
 import Card from '../components/common/Card'
 import dayjs from 'dayjs'
-
 export default {
   name: 'home',
   data() {
@@ -132,8 +131,8 @@ export default {
 }
 .swiper-pagination {
   .swiper-pagination-bullet {
-    width: 0.6923rem;
-    height: 0.6923rem;
+    width: 0.6538rem;
+    height: 0.6538rem;
     border-radius: 0.1538rem;
     background: map-get($colors, "white");
     opacity: 1;
@@ -142,7 +141,6 @@ export default {
     }
   }
 }
-
 // nav-icons style
 .nav-icons {
   border-top: 1px solid $border-color;
@@ -156,7 +154,6 @@ export default {
     }
   }
 }
-
 // news card style
 .news {
   border-bottom: 1px solid $border-color;
