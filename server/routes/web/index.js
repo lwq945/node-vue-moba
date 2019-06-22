@@ -680,6 +680,44 @@ module.exports = app => {
   })
 
   // 获取英雄列表
+  router.get('/heroes/list', async (req, res) => {
+    // 先找出顶级分类
+    const parent = await Category.findOne().where({ name: '英雄分类' })
+    //model.aggregate([]) 使用 聚合 进行关联查询，可以执行多次的条件
+    const cats = await Category.aggregate([
+      {
+        // 过滤查询：找出字段parent的值为顶级分类_id的所有子分类
+        $match: {
+          parent: parent._id
+        }
+      },
+      {
+        // 关联查询：找出子分类对应的文章标题数据
+        $lookup: {
+          from: 'heroes', // 关联集合的名称(小写复数)
+          localField: '_id', // 本地键
+          foreignField: 'categories', //外键(关联集合的字段)
+          as: 'heroList' // 输出后的名称
+        }
+      }
+    ])
+
+    // 返回所有子分类的_id
+    const subCats = cats.map(v => v._id)
+    // 添加字段 '热门'
+    cats.unshift({
+      name: '热门',
+      heroList: await Hero.find()
+        .where({
+          categories: { $in: subCats }
+        })
+        .limit(10)
+        .lean()
+    })
+
+    res.send(cats)
+  })
+
 
   app.use('/web/api', router)
 }

@@ -6,6 +6,7 @@
       <i class="iconfont icon-more2 fs-xl text-dark-l"></i>
     </div>
     <div class="card-body pb-2">
+      <!-- nav bar -->
       <ul class="nav d-flex jc-between ai-center pt-4 pb-3">
         <li
           class="nav-item"
@@ -17,8 +18,9 @@
           <div class="nav-link fs-md">{{ category.name }}</div>
         </li>
       </ul>
+      <!-- slides -->
       <div class="mt-1">
-        <swiper ref="slide" @slide-change="active=$refs.slide.swiper.realIndex">
+        <swiper ref="slide" @slide-change="active=$refs.slide.swiper.realIndex" :options='swiperOption'>
           <swiper-slide v-for="(category,index) in categories" :key="index">
             <!-- 将 categories 的每一项作为 插槽的prop传入，在父组件就可以直接拿到 category -->
             <slot name="newslists" :category="category"></slot>
@@ -39,7 +41,10 @@ export default {
   },
   data() {
     return {
-      active: 0
+      active: 0,
+      swiperOption: {
+        autoHeight: true
+      }
     }
   },
 }
