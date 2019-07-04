@@ -25,6 +25,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+p {
+  line-height: 1.5em;
+}
+
 a {
   color: #222;
   text-decoration: none;
@@ -32,6 +36,10 @@ a {
 
 li {
   list-style: none;
+}
+// bold 
+.fs-weight {
+  font-weight: bold;
 }
 
 // colors
@@ -131,6 +139,14 @@ li {
     }
   }
 }
+
+// borders
+@each $var in (top, right, bottom, left) {
+  .border-#{$var} {
+    border-#{$var}: 1px solid $border-color;
+  }
+}
+
 
 // button
 button {

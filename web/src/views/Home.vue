@@ -63,16 +63,12 @@
       <m-card icon="menu" title="新闻资讯" :categories="newsData">
         <!-- 直接拿到 slot 绑定的 prop => category -->
         <template #newslists="{category}">
-          <div
-            class="slide-item d-flex jc-between ai-center mb-4"
-            v-for="(item,index) in category.newsList"
-            :key="index"
-          >
+          <router-link tag="div" :to="`/articleDetail/${item._id}`" class="slide-item d-flex jc-between ai-center mb-4" v-for="(item,index) in category.newsList" :key="index">
             <span class="text-hightlight fs-mdl">[{{ item.categoryName }}]</span>
             <span class="mx-2">|</span>
             <span class="text-ellipsis flex-1 mr-4 fs-mdl text-black">{{ item.title }}</span>
             <span class="text-grey-l fs-sm">{{ item.createdAt | dateFormat }}</span>
-          </div>
+          </router-link>
         </template>
       </m-card>
     </div>
@@ -80,6 +76,7 @@
     <!-- card heroes -->
     <div class="heroes bg-white my-4 px-5">
       <m-card icon="toukui" title="英雄列表" :categories="heroesData">
+        <img slot="banner" class="banner w-100 mt-4" src="//ossweb-img.qq.com/upload/webplat/info/yxzj/20190511/89517772414729.jpg">
         <!-- 直接拿到 slot 绑定的 prop => category -->
         <template #newslists="{category}">
           <div class="siled-item-wrapper d-flex flex-wrap">
@@ -149,7 +146,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/style/_variable.scss";
 // swiper style
 .swiper-pagination {
