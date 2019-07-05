@@ -5,6 +5,7 @@ const HeroSchema = new schema({
   name: { type: String },
   avatar: { type: String },
   title: { type: String },
+  banner: { type: String },
   categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],
   scores: {
     difficult: { type: Number },
@@ -15,6 +16,8 @@ const HeroSchema = new schema({
   skills: [{
     icon: { type: String },
     name: { type: String },
+    delay: { type: String },
+    expend: { type: String },
     description: { type: String },
     tips: { type: String }
   }],

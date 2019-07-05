@@ -80,10 +80,10 @@
         <!-- 直接拿到 slot 绑定的 prop => category -->
         <template #newslists="{category}">
           <div class="siled-item-wrapper d-flex flex-wrap">
-            <div class="slide-item p-2" v-for="(item,index) in category.heroList" :key="index">
+            <router-link tag="div" :to="`/heroes/${item._id}`" class="slide-item p-2" v-for="(item,index) in category.heroList" :key="index">
               <img :src="item.avatar" class="w-100">
               <p class="fs-sm">{{ item.name }}</p>
-            </div>
+            </router-link>
           </div>
         </template>
       </m-card>

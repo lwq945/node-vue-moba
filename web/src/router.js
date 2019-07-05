@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Strategy from './views/Strategy.vue'
 import Match from './views/Match.vue'
 import ArticleDetail from './views/ArticleDetail.vue'
+import Hero from './views/Hero.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,7 @@ export default new Router({
         { path: '/match', name: 'match', component: Match },
       ]
     },
+    { path: '/heroes/:id', name: 'hero', component: Hero, props: true}
   ],
   linkExactActiveClass: 'active'
 })
