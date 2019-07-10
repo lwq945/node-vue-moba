@@ -149,11 +149,27 @@ li {
 
 
 // button
-button {
+.btn {
   border: none;
   border-radius: 0.1538rem;
   padding: .3rem .6rem;
   font-size: map-get($font-sizes, 'sm') * $base-font-size;
+  &.btn-lg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      color: map-get($colors, 'primary');
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      margin-top: .2rem;
+    }
+    background: map-get($colors,'grey-xhl');
+    border: 1px solid map-get($colors,'grey-lll');
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+  }
 }
 
 // nav
